@@ -3,19 +3,14 @@ import { ProductImage } from "../utils/data";
 
 const PhotoGallery = ({ bgimage, setBgimage }) => {
   const ChangeThumbnail = (id) => {
-    console.log(id);
     const newpeople = ProductImage.filter((item) => item.id === id);
-    console.log(newpeople);
     setBgimage(newpeople);
   };
+
   const BgImage = () => {
-    return bgimage.map(({ imageBG, id }) => {
-      return (
-        <div>
-          <img src={imageBG} key={id} alt="bg-img" className="img-BG" />
-        </div>
-      );
-    });
+    return bgimage.map(({ imageBG, id }) => (
+      <img src={imageBG} key={id} alt="bg-img" className="img-BG" />
+    ));
   };
 
   const MobileImg = () => {
@@ -31,52 +26,49 @@ const PhotoGallery = ({ bgimage, setBgimage }) => {
       }
       return number;
     };
+
     const nextPerson = () => {
-      setIndex((index) => {
-        let newIndex = index + 1;
-        return checkNumber(newIndex);
-      });
+      setIndex((index) => checkNumber(index + 1));
     };
+
     const prevPerson = () => {
-      setIndex((index) => {
-        let newIndex = index - 1;
-        return checkNumber(newIndex);
-      });
+      setIndex((index) => checkNumber(index - 1));
     };
+
     return (
       <section className="mobileImg-hero">
         <img
           onClick={prevPerson}
           className="left-arrow"
           src="/images/chevron-left.png"
+          alt="left-arrow"
         />
         <img key={id} src={imageBG} alt="big-img" className="Mbig-img" />
         <img
           onClick={nextPerson}
           className="right-arrow"
           src="/images/chevron-right.png"
+          alt="right-arrow"
         />
       </section>
     );
   };
+
   return (
     <>
       <section className="desktop">
         <BgImage />
         <div className="desktop-flex">
-          {ProductImage.map(({ id, image }) => {
-            return (
-              <>
-                <img
-                  key={id}
-                  src={image}
-                  alt="small-img"
-                  className="smallImg"
-                  onClick={() => ChangeThumbnail(id)}
-                />
-              </>
-            );
-          })}
+          {ProductImage.map(({ id, image }) => (
+            <div key={id}>
+              <img
+                src={image}
+                alt="small-img"
+                className="smallImg"
+                onClick={() => ChangeThumbnail(id)}
+              />
+            </div>
+          ))}
         </div>
       </section>
       <section className="mobile">
